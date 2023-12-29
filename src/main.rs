@@ -132,7 +132,7 @@ impl LabyrinthPlugin {
                 });
 
                 let current_time = SystemTime::now().duration_since(SystemTime::UNIX_EPOCH)?;
-                let public_addr = SocketAddr::new(Ipv4Addr::LOCALHOST.into(), port);
+                let public_addr = SocketAddr::new(Ipv4Addr::new(0, 0, 0, 0).into(), port);
                 let socket = UdpSocket::bind(public_addr)?;
                 let server_config = ServerConfig {
                     current_time,
@@ -167,7 +167,7 @@ impl LabyrinthPlugin {
                 let current_time = SystemTime::now().duration_since(SystemTime::UNIX_EPOCH)?;
                 let client_id = current_time.as_millis() as u64;
                 let server_addr = SocketAddr::new(ip, port);
-                let socket = UdpSocket::bind((ip, 0))?;
+                let socket = UdpSocket::bind((IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)), 0))?;
                 let authentication = ClientAuthentication::Unsecure {
                     client_id,
                     protocol_id: PROTOCOL_ID,
